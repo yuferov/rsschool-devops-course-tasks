@@ -13,8 +13,8 @@ resource "aws_s3_bucket_ownership_controls" "task-1-bucket-rsschool" {
 
 resource "aws_s3_bucket_acl" "task-1-bucket-rsschool" {
   depends_on = [aws_s3_bucket_ownership_controls.task-1-bucket-rsschool]
-  bucket = aws_s3_bucket.task-1-bucket-rsschool.id
-  acl    = "private"
+  bucket     = aws_s3_bucket.task-1-bucket-rsschool.id
+  acl        = "private"
 }
 
 resource "aws_s3_bucket_versioning" "task-1-bucket-rsschool" {
