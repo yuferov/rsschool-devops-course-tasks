@@ -6,7 +6,8 @@ Follow the instructions below to set up and execute the code.
 # Task_1
 ## Prerequisites
 
-1. Complete steps 1-3 from the original task [README file](https://github.com/rolling-scopes-school/tasks/blob/master/devops/modules/1_basic-configuration/task_1.md#steps).
+1. Complete steps 1-3 from the original task [README file](https://github.com/rolling-scopes-school/tasks/blob/master/devops/modules/1_basic-configuration/task_1.md#steps).<br/>
+
 **Hint**: you also need to add an [AmazonDynamoDBFullAccess_v2](https://204567761946-nbl34tov.us-east-1.console.aws.amazon.com/iam/home?region=us-east-1#/policies/details/arn%3Aaws%3Aiam%3A%3Aaws%3Apolicy%2FAmazonDynamoDBFullAccess_v2?section=permissions) policy to your AWS user to use this codebase.
 
 2. Set up environment variables (fill in blank ones):
