@@ -1,0 +1,48 @@
+name: 'test terraform with s3 backend'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Terraform init, plan, apply'
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+    - name: Configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v4.1.0
+      with:
+        role-to-assume: arn:aws:iam::204567761946:role/GithubActionsRole_test
+        role-session-name: GithubActions_session
+        aws-region: eu-east-1
+
+    - name: Checkout
+      uses: actions/checkout@v4.2.2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3.1.2
+      with:
+        terraform_version: 1.12.2
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    - name: Terraform Plan
+      run: terraform plan -input=false
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false
