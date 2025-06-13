@@ -25,6 +25,7 @@ jobs:
         role-to-assume: arn:aws:iam::204567761946:role/GithubActionsRole_test
         role-session-name: GithubActions_session
         aws-region: us-east-1
+        audience: sts.amazonaws.com
 
     - name: Checkout
       uses: actions/checkout@v4.2.2
