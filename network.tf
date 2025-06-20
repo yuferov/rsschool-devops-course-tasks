@@ -15,3 +15,32 @@ resource "aws_subnet" "networks" {
     Name = "${var.basename}-${each.key}"
   }
 }
+
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name = "${var.basename}-internet-gateway"
+  }
+}
+
+resource "aws_route_table" "public_routes" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
+}
+
+resource "aws_route_table_association" "subnet_assoc" {
+  #for_each = aws_subnet.networks
+  for_each = {
+    for subnet_name, subnet in aws_subnet.networks :
+    subnet_name => subnet
+    if contains(["pub-sub-1", "pub-sub-2"], subnet_name)
+  }
+  subnet_id      = each.value.id
+  route_table_id = aws_route_table.public_routes.id
+}
+
